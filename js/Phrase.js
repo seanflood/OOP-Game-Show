@@ -11,17 +11,17 @@ class Phrase{
      *Adds letter placeholders to the display when the game starts.
      */
     addPhraseToDisplay(){
-        let phrase = game.getRandomPhrase()
         
-        for(let i = 0; i < phrase.phrase.length; i++){
+        
+        for(let i = 0; i < this.phrase.length; i++){
             let li = document.createElement('li') 
-            if (phrase.phrase[i] === ' '){
+            if (this.phrase[i] === ' '){
                 li.className = "space"
                 li.innerHTML = ' '
                 phraseList.appendChild(li);
             }else{
-                li.className = `hide letter ${phrase.phrase[i]}`
-                li.innerHTML = `${phrase.phrase[i]}`
+                li.className = `hide letter ${this.phrase[i]}`
+                li.innerHTML = `${this.phrase[i]}`
                 phraseList.appendChild(li); 
             }
         }
@@ -32,12 +32,15 @@ class Phrase{
      * Checks to see if the letter selected by the player matches a letter in the phrase.
      */
     checkLetter(letter){
-        let x = this.phrase.toLowerCase().split('')
-        console.log(x)
-        if(x.includes(letter)){
+        let splitPhrase = this.phrase.toLowerCase().split('')
+        // console.log(x)
+        if(splitPhrase.includes(letter)){
+            console.log('yep')
             return true;
         }else{
+            console.log('nope')
             return false;
+
         }
     
     }
@@ -47,7 +50,9 @@ class Phrase{
      *
      * Reveals the letter(s) on the board that matches the player's selection.
      */
-     showMatchedLetter(){};
+     showMatchedLetter(){
+         
+     };
 
 
 
