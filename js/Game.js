@@ -3,6 +3,7 @@
  * Game.js */
 
 
+
 class Game{
     constructor(){
         this.missed = 0; 
@@ -21,7 +22,8 @@ class Game{
         const randomPhrase = game.getRandomPhrase();
         const phrase = new Phrase(randomPhrase.phrase);
         phrase.addPhraseToDisplay();
-        this.activePhrase = phrase; 
+        this.activePhrase = phrase;
+        console.log(phrase.phrase)
     };
 
     /**
@@ -34,7 +36,15 @@ class Game{
 
     }; 
 
-    handleInteraction(){}; 
+    handleInteraction(){
+        keyRows.addEventListener('click', (e) => {
+            let letterClick = e.target.innerHTML
+            console.log(letterClick)
+        })
+        // for(let i = 0; i < singleButton.length; i++){
+        //     console.log(singleButton[i].innerHTML)  
+    }
+
 
     removeLife(){}; 
 
@@ -42,10 +52,6 @@ class Game{
 
     gameOver(){}; 
 }
-
-
-
-
 
 
 
