@@ -42,13 +42,33 @@ class Game{
             let letterClick = e.target.innerHTML
             game.activePhrase.checkLetter(letterClick)
             game.activePhrase.showMatchedLetter(letterClick)
+            game.checkForWin()
         })
     }
 
 
     removeLife(){}; 
 
-    checkForWin(){}; 
+
+
+
+    /**
+    * Checks for winning move
+    * @return {boolean} True if game has been won, false if game wasn't
+    won
+    */
+    checkForWin() {
+        let phraseLength = this.activePhrase.phrase.split(' ').join('')
+        let shownLength = document.getElementsByClassName('show letter');
+        if(shownLength.length === phraseLength.length){
+            return true; 
+        }else{
+            return false;
+        }
+    };  
+
+
+
 
     gameOver(){}; 
 }
