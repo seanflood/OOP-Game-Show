@@ -47,12 +47,20 @@ class Phrase{
 
 
     /**
-     *
-     * Reveals the letter(s) on the board that matches the player's selection.
-     */
-     showMatchedLetter(){
-         
-     };
+    * Displays passed letter on screen after a match is found
+    * @param (string) letter - Letter to display
+    */
+    showMatchedLetter(letter) {
+        let matchedLetter = document.getElementsByClassName(`hide letter`)
+        for (let i = 0; i < matchedLetter.length; i++){
+            if(letter === matchedLetter[i].innerHTML.toLowerCase()){
+                matchedLetter[i].className = `show letter ${letter}`
+            }
+        }
+    };
+        
+
+    
 
 
 

@@ -15,6 +15,7 @@ const singleButtons = document.querySelectorAll('button.key')
 
 
 
+
 //Working start button listener
 
 // startButton.addEventListener('click',  (e) => {
@@ -32,6 +33,7 @@ startButton.addEventListener('click',  function () {
     game = new Game();
     game.startGame();
     game.handleInteraction()
+    
 
   })
 

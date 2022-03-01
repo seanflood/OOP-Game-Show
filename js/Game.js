@@ -21,9 +21,9 @@ class Game{
         const game = new Game();
         const randomPhrase = game.getRandomPhrase();
         const phrase = new Phrase(randomPhrase.phrase);
-        phrase.addPhraseToDisplay();
         this.activePhrase = phrase;
-        console.log(phrase.phrase)
+        phrase.addPhraseToDisplay();
+        console.log(this.activePhrase)
     };
 
     /**
@@ -37,12 +37,12 @@ class Game{
     }; 
 
     handleInteraction(){
+        
         keyRows.addEventListener('click', (e) => {
             let letterClick = e.target.innerHTML
-            console.log(letterClick)
+            game.activePhrase.checkLetter(letterClick)
+            game.activePhrase.showMatchedLetter(letterClick)
         })
-        // for(let i = 0; i < singleButton.length; i++){
-        //     console.log(singleButton[i].innerHTML)  
     }
 
 
