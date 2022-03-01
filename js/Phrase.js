@@ -12,7 +12,7 @@ class Phrase{
      */
     addPhraseToDisplay(){
         let phrase = game.getRandomPhrase()
-        console.log(phrase)
+        
         for(let i = 0; i < phrase.phrase.length; i++){
             let li = document.createElement('li') 
             if (phrase.phrase[i] === ' '){
@@ -31,13 +31,23 @@ class Phrase{
     /**
      * Checks to see if the letter selected by the player matches a letter in the phrase.
      */
-    checkLetter(){};
+    checkLetter(letter){
+        let x = this.phrase.toLowerCase().split('')
+        console.log(x)
+        if(x.includes(letter)){
+            return true;
+        }else{
+            return false;
+        }
+    
+    }
 
 
     /**
+     *
      * Reveals the letter(s) on the board that matches the player's selection.
      */
-    showMatchedLetter(){};
+     showMatchedLetter(){};
 
 
 
