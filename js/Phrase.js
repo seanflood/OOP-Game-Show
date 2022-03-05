@@ -51,10 +51,10 @@ class Phrase{
     * @param (string) letter - Letter to display
     */
     showMatchedLetter(letter) {
-        let matchedLetter = document.getElementsByClassName(`hide letter`)
+        let matchedLetter = document.getElementById('phrase').firstElementChild.children
         for (let i = 0; i < matchedLetter.length; i++){
             if(letter === matchedLetter[i].innerHTML.toLowerCase()){
-                matchedLetter[i].className = `show letter ${letter}`
+                matchedLetter[i].className = `show letter ${letter.toLowerCase()}`
             }
         }
     };

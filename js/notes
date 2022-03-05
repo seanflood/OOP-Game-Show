@@ -1,0 +1,13 @@
+`gameOver()`: 
+
+This method displays the original start screen overlay,
+
+and
+
+depending on the outcome of the game, updates the overlay `h1` element with
+a friendly win or loss message
+
+and 
+
+replaces the overlay’s `start` CSS class with
+either the `win` or `lose` CSS class.
