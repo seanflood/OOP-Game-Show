@@ -18,11 +18,13 @@ class Game{
     }
 
     startGame(){
+        this.missed = 0; 
         const game = new Game();
         const randomPhrase = game.getRandomPhrase();
         const phrase = new Phrase(randomPhrase.phrase);
         this.activePhrase = phrase;
         phrase.addPhraseToDisplay();
+        
         console.log(this.activePhrase)
     };
 
@@ -103,8 +105,9 @@ class Game{
 
 
     resetGame(){
-        this.activePhrase = null;          
-
+        this.activePhrase = null; 
+        this.missed = 0;         
+        let x = this.missed;
         phraseList.innerHTML = ''
         for (let i = 0; i < buttons.length; i++){
             if (buttons[i].className === 'chosen' || buttons[i].className === 'wrong' ){
@@ -112,6 +115,8 @@ class Game{
                 buttons[i].disabled = false;
             }
         }
+
+
 
     }
 
@@ -121,20 +126,18 @@ class Game{
     */
     gameOver(gameWon) {
         if (this.checkForWin() === true){
-            this.missed = 0; 
             overlay.className = 'win'
             gameOverMessage.innerHTML = 'Winner!'
             keyRows.style.display = 'none';
             overlay.style.display = 'block';
-            
+            this.resetGame()
             console.log('WIINNAAHH')
         }else{
-            this.missed = 0; 
             overlay.className = 'lose'
             gameOverMessage.innerHTML = 'You Lost! Try again?'
             keyRows.style.display = 'none';
             overlay.style.display = 'block';
-            
+            this.resetGame()
             console.log('LOSAHAHH')
         }
     };
