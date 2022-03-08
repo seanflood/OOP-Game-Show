@@ -16,7 +16,7 @@ const gameOverMessage = document.getElementById('game-over-message')
 const correctButton = document.querySelectorAll('button.chosen')
 const wrongButton = document.querySelectorAll('button.wrong')
 const buttons = document.querySelectorAll('button')
-
+const lifeBar = document.querySelector("#scoreboard ol")
 
  
 
