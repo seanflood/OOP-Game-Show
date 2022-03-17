@@ -4,82 +4,54 @@
 
 class Phrase{
     constructor(phrase){
-        this.phrase = phrase;
+        this.phrase = phrase; 
     }
 
+
     /**
-     *Adds letter placeholders to the display when the game starts.
-     */
-    addPhraseToDisplay(){
+    * Display phrase on game board
+    */
+    addPhraseToDisplay() {
+        let currentPhrase = this.phrase
         
-        
-        for(let i = 0; i < this.phrase.length; i++){
-            let li = document.createElement('li') 
-            if (this.phrase[i] === ' '){
-                li.className = "space"
-                li.innerHTML = ' '
-                phraseList.appendChild(li);
+        for(let i = 0; i < currentPhrase.length; i++){
+            let letterSquare = document.createElement('li')
+            letterSquare.innerHTML = currentPhrase[i]
+
+            if(letterSquare.innerHTML === ' '){
+                letterSquare.className = `space`        
+                phraseBlocks.appendChild(letterSquare)
             }else{
-                li.className = `hide letter ${this.phrase[i]}`
-                li.innerHTML = `${this.phrase[i]}`
-                phraseList.appendChild(li); 
+                letterSquare.className = `hide letter ${currentPhrase[i]}`
+                phraseBlocks.appendChild(letterSquare) 
             }
         }
     };
 
 
     /**
-     * Checks to see if the letter selected by the player matches a letter in the phrase.
-     */
-    checkLetter(letter){
-        let splitPhrase = this.phrase.toLowerCase().split('')
-        // console.log(x)
-        if(splitPhrase.includes(letter)){
-            console.log('yep')
-            return true;
+    * Checks if passed letter is in phrase
+    * @param (string) letter - Letter to check
+    */
+    checkLetter(letter) {
+        if(this.phrase.toLowerCase().includes(letter) && letter !== ''){
+            return true
         }else{
-            console.log('nope')
-            return false;
-
+            return false
         }
-    
-    }
+    };
 
 
     /**
     * Displays passed letter on screen after a match is found
     * @param (string) letter - Letter to display
     */
-    showMatchedLetter(letter) {
+     showMatchedLetter(letter) {
         let matchedLetter = document.getElementById('phrase').firstElementChild.children
         for (let i = 0; i < matchedLetter.length; i++){
-            if(letter === matchedLetter[i].innerHTML.toLowerCase()){
+            if(letter === matchedLetter[i].innerText.toLowerCase()){
                 matchedLetter[i].className = `show letter ${letter.toLowerCase()}`
             }
         }
     };
-        
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}//class end
-
-
+}//End of Phrase Class

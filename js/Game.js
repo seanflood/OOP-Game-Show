@@ -3,86 +3,39 @@
  * Game.js */
 
 
-
 class Game{
     constructor(){
         this.missed = 0; 
         this.phrases = [
-            new Phrase('Swinging For the Fences'),
-            new Phrase('Ugly Duckling'), 
-            new Phrase('A Dime a Dozen'), 
-            new Phrase('Talk the Talk'),
-            new Phrase('Shot In the Dark')
-        ];
-        this.activePhrase = null;  
+            new Phrase('Heads Up'),
+            new Phrase('In a Pickle'), 
+            new Phrase('Back To Square One'), 
+            new Phrase('Go For Broke'), 
+            new Phrase('Down For The Count')
+        ]; 
+        this.activePhrase = null; 
     }
 
-    startGame(){
-        this.missed = 0; 
-        const game = new Game();
-        const randomPhrase = game.getRandomPhrase();
-        const phrase = new Phrase(randomPhrase.phrase);
-        this.activePhrase = phrase;
-        phrase.addPhraseToDisplay();
-        
-        console.log(this.activePhrase)
-    };
 
     /**
     * Selects random phrase from phrases property
     * @return {Object} Phrase object chosen to be used
     */
-    getRandomPhrase(){
+    getRandomPhrase() {
         let random = this.phrases
         return random[Math.floor(Math.random()*random.length)]
-
-    }; 
-
-    handleInteraction(){
-        
-        keyRows.addEventListener('click', (e) => {
-            let targ = e.target 
-            let letterClick = e.target.innerHTML
-
-            e.target.setAttribute('disabled', true)
-            
-            
-            if (this.activePhrase.checkLetter(letterClick) === false && targ.className === 'key'){
-                this.removeLife()
-                targ.className = 'wrong'
-                if(this.missed > 4){
-                    this.gameOver(false)
-                } 
-
-            }else if(this.activePhrase.checkLetter(letterClick)){                
-                this.activePhrase.showMatchedLetter(letterClick)
-                targ.className = 'chosen'
-                if(this.checkForWin()){
-                    this.gameOver(true); 
-                }
-            }
-        
-
-          
-    })
-    }
-
-    /**
-    * Increases the value of the missed property
-    * Removes a life from the scoreboard
-    * Checks if player has remaining lives and ends game if player is out
-    */
-    removeLife() {
-        
-        this.missed += 1 
-        let x = this.missed;  
-        document.querySelector(`#scoreboard ol :nth-child(${x})`).firstChild.src = 'images/lostHeart.png'
     };
 
 
-
-
-
+    /**
+    * Begins game by selecting a random phrase and displaying it to user
+    */
+    startGame() {
+        overlay.style.display = 'none';
+        let randPhrase = new Phrase(this.getRandomPhrase().phrase)
+        this.activePhrase = randPhrase; 
+        randPhrase.addPhraseToDisplay();
+    };
 
 
     /**
@@ -91,61 +44,84 @@ class Game{
     won
     */
     checkForWin() {
-        let phraseLength = this.activePhrase.phrase.split(' ').join('')
-        let shownLength = document.getElementsByClassName('show letter');
-        if(shownLength.length === phraseLength.length){
-            return true; 
-            
+        let phrase = this.activePhrase.phrase.split(' ').join('')
+        const showLetters = document.querySelectorAll('.letter.show').length
+        if(showLetters === phrase.length){
+            this.gameOver(true)
+            return true
         }else{
-            return false;
+            return false
         }
-    };  
+    };
 
 
+    /**
+    * Increases the value of the missed property
+    * Removes a life from the scoreboard
+    * Checks if player has remaining lives and ends game if player is out
+    */
+    removeLife() {
+        tries[`${this.missed}`].firstChild.src = 'file:///C:/Users/Swan/Desktop/OOP%20second%20try/images/lostHeart.png'
+        this.missed += 1; 
+        if(this.missed > 4){
+            this.gameOver()            
+        }
+    };
 
 
+    /**
+     * Returns all button classes and phrase characters to default
+     */
     resetGame(){
-        this.activePhrase = null; 
-        this.missed = 0;         
-        let x = this.missed;
-        phraseList.innerHTML = ''
-        for (let i = 0; i < buttons.length; i++){
-            if (buttons[i].className === 'chosen' || buttons[i].className === 'wrong' ){
-                buttons[i].className = 'key'
-                buttons[i].disabled = false;
+        phraseBlocks.innerHTML = '';
+        for(let i = 0; i < button.length; i++){
+            if(button[i].className === 'wrong' || button[i].className === 'chosen'){
+                button[i].className = 'key'
+                button[i].disabled = false; 
             }
         }
-
-
-
+        
+        for(let i = 0; i < img.length; i++){
+            if(img[i].src === 'file:///C:/Users/Swan/Desktop/OOP%20second%20try/images/lostHeart.png'){
+                img[i].src = 'file:///C:/Users/Swan/Desktop/OOP%20second%20try/images/liveHeart.png'
+            }
+        }
     }
+
 
     /**
     * Displays game over message
     * @param {boolean} gameWon - Whether or not the user won the game
     */
     gameOver(gameWon) {
-        if (this.checkForWin() === true){
-            overlay.className = 'win'
-            gameOverMessage.innerHTML = 'Winner!'
-            keyRows.style.display = 'none';
-            overlay.style.display = 'block';
-            this.resetGame()
-            console.log('WIINNAAHH')
+        overlay.style.display = 'block';    
+        if(gameWon){
+            overlay.className = 'win';
+            endMessage.innerText = "You win!"
+            this.resetGame()     
         }else{
-            overlay.className = 'lose'
-            gameOverMessage.innerHTML = 'You Lost! Try again?'
-            keyRows.style.display = 'none';
-            overlay.style.display = 'block';
+            overlay.className = 'lose'; 
+            endMessage.innerText = "Sorry! Try again!"
             this.resetGame()
-            console.log('LOSAHAHH')
         }
     };
 
-}
 
-
-
-
-
-//'Swinging For the Fences', 'Ugly Duckling', 'A Dime a Dozen', 'Knock Your Socks Off', 'Shot In the Dark'
+    /**
+    * Handles onscreen keyboard button clicks
+    * @param (HTMLButtonElement) button - The clicked button element
+    */
+    handleInteraction(button) {
+        let buttonValue = button.innerHTML; 
+        button.disabled = true;
+        
+        if(!this.activePhrase.checkLetter(buttonValue)){
+            button.className = 'wrong'; 
+            this.removeLife(); 
+        }else if(this.activePhrase.checkLetter(buttonValue)){
+            button.className = 'chosen'; 
+            this.activePhrase.showMatchedLetter(buttonValue)
+            this.checkForWin()
+        }
+    };
+}//End of Game Class
